@@ -2,31 +2,31 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "Build with g++",
+            "label": "Build Test",
             "type": "shell",
             "command": "g++",
             "args": [
                 "-g",
-                "${workspaceFolder}/main.cpp",
+                "${workspaceFolder}/tests/shader_drawing_pyramid_test.cpp",
                 "${workspaceFolder}/src/Shader.cpp",
                 "${workspaceFolder}/src/Camera.cpp",
                 "${workspaceFolder}/src/Mesh.cpp",
                 "-o",
-                "${workspaceFolder}/build/output.exe",
+                "${workspaceFolder}/build/shader_drawing_pyramid_test.exe",
                 "-I", "${workspaceFolder}/include",
                 "-L", "${workspaceFolder}/lib",
                 "-lglfw3",
                 "-lglew32",
                 "-lopengl32",
                 "-lgdi32",
-                "-lfmt",
+                "-lfmt"
             ],
             "group": {
                 "kind": "build",
                 "isDefault": true
             },
             "problemMatcher": ["$gcc"],
-            "detail": "Build and link GLFW, GLEW, and OpenGL"
+            "detail": "Build and link the shader drawing pyramid test"
         }
     ]
 }
