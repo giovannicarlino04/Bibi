@@ -1,32 +1,17 @@
 {
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "Build Test",
+            "label": "compile",
             "type": "shell",
-            "command": "g++",
-            "args": [
-                "-g",
-                "${workspaceFolder}/tests/shader_drawing_pyramid_test.cpp",
-                "${workspaceFolder}/src/Shader.cpp",
-                "${workspaceFolder}/src/Camera.cpp",
-                "${workspaceFolder}/src/Mesh.cpp",
-                "-o",
-                "${workspaceFolder}/build/shader_drawing_pyramid_test.exe",
-                "-I", "${workspaceFolder}/include",
-                "-L", "${workspaceFolder}/lib",
-                "-lglfw3",
-                "-lglew32",
-                "-lopengl32",
-                "-lgdi32",
-                "-lfmt"
-            ],
+            "command": "make",
+            "problemMatcher": [],
             "group": {
                 "kind": "build",
                 "isDefault": true
-            },
-            "problemMatcher": ["$gcc"],
-            "detail": "Build and link the shader drawing pyramid test"
+            }
         }
     ]
 }
