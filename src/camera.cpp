@@ -16,11 +16,15 @@ void Camera::moveBackward(float delta) {
 void Camera::moveLeft(float delta) {
     position -= right * delta;
 }
-
 void Camera::moveRight(float delta) {
     position += right * delta;
 }
-
+void Camera::moveUp(float delta) {
+    position += up * delta;
+}
+void Camera::moveDown(float delta) {
+    position -= up * delta;
+}
 void Camera::rotate(float yawOffset, float pitchOffset) {
     yaw += yawOffset;
     pitch += pitchOffset;

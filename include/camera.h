@@ -12,6 +12,8 @@ public:
     void moveBackward(float delta);
     void moveLeft(float delta);
     void moveRight(float delta);
+    void moveUp(float delta);
+    void moveDown(float delta);
     void rotate(float yawOffset, float pitchOffset);
 
     glm::mat4 GetViewMatrix() const;

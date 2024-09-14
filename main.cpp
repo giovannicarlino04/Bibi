@@ -100,10 +100,11 @@ int main() {
     glEnableVertexAttribArray(1);
 
     glBindVertexArray(0); // Unbind VAO
-
+    // Enable depth testing
+    glEnable(GL_DEPTH_TEST);
     // Main loop
     while (!glfwWindowShouldClose(window)) {
-        float cameraSpeed = 2.5f * 0.016f; // Adjust speed and delta time
+        float cameraSpeed = 0.05f * 0.016f; // Adjust speed and delta time
 
         if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
             camera.moveForward(cameraSpeed);
@@ -116,7 +117,14 @@ int main() {
         }
         if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) {
             camera.moveRight(cameraSpeed);
-        }
+        }  
+        if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS) {
+            camera.moveUp(cameraSpeed);
+        }       
+        if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS) {
+            camera.moveDown(cameraSpeed);
+        }       
+
 
         // Clear the screen
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -144,6 +152,9 @@ int main() {
 
         // Poll for and process events
         glfwPollEvents();
+        
+        // Clear the screen and the depth buffer
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     }
 
     // Cleanup
