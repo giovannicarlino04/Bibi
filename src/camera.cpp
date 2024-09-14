@@ -1,20 +1,48 @@
-#include "Camera.h"
+#include "camera.h"
 
-Camera::Camera(glm::vec3 position, glm::vec3 up, float yaw, float pitch)
-    : Front(glm::vec3(0.0f, 0.0f, -1.0f)), Yaw(yaw), Pitch(pitch), WorldUp(up), Position(position) {
+Camera::Camera(glm::vec3 position, glm::vec3 front, float yaw, float pitch)
+    : position(position), front(front), yaw(yaw), pitch(pitch) {
+    updateCameraVectors();
+}
+
+void Camera::moveForward(float delta) {
+    position += front * delta;
+}
+
+void Camera::moveBackward(float delta) {
+    position -= front * delta;
+}
+
+void Camera::moveLeft(float delta) {
+    position -= right * delta;
+}
+
+void Camera::moveRight(float delta) {
+    position += right * delta;
+}
+
+void Camera::rotate(float yawOffset, float pitchOffset) {
+    yaw += yawOffset;
+    pitch += pitchOffset;
+
+    // Constrain pitch to avoid flipping
+    if (pitch > 89.0f) pitch = 89.0f;
+    if (pitch < -89.0f) pitch = -89.0f;
+
     updateCameraVectors();
 }
 
 void Camera::updateCameraVectors() {
     glm::vec3 front;
-    front.x = cos(glm::radians(Yaw)) * cos(glm::radians(Pitch));
-    front.y = sin(glm::radians(Pitch));
-    front.z = sin(glm::radians(Yaw)) * cos(glm::radians(Pitch));
-    Front = glm::normalize(front);
-    Right = glm::normalize(glm::cross(Front, WorldUp));
-    Up = glm::normalize(glm::cross(Right, Front));
+    front.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
+    front.y = sin(glm::radians(pitch));
+    front.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
+    this->front = glm::normalize(front);
+
+    right = glm::normalize(glm::cross(front, glm::vec3(0.0f, 1.0f, 0.0f)));
+    up = glm::normalize(glm::cross(right, front));
 }
 
 glm::mat4 Camera::GetViewMatrix() const {
-    return glm::lookAt(Position, Position + Front, Up);
+    return glm::lookAt(position, position + front, up);
 }

@@ -10,9 +10,9 @@ public:
     Shader(const std::string& vertexPath, const std::string& fragmentPath);
     void use() const;
     GLuint getID() const { return ID; }
+    GLuint ID;
 
 private:
-    GLuint ID;
     void checkCompileErrors(GLuint shader, std::string type);
 };
 
