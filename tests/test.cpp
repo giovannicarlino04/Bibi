@@ -6,6 +6,11 @@
 #include "camera.h"
 #include <GLFW/glfw3.h>
 
+float deltaTime = 0.0f; // Time between current frame and last frame
+float lastFrame = 0.0f; // Time of last frame
+int frameCount = 0; // Number of frames rendered
+float elapsedTime = 0.0f; // Time elapsed for FPS calculation
+
 // Define the vertices for a simple pyramid
 const float vertices[] = {
     // Positions         // Colors
@@ -102,8 +107,28 @@ int main() {
     glBindVertexArray(0); // Unbind VAO
     // Enable depth testing
     glEnable(GL_DEPTH_TEST);
-    // Main loop
+    
     while (!glfwWindowShouldClose(window)) {
+        // Calculate delta time
+        float currentFrame = glfwGetTime();
+        deltaTime = currentFrame - lastFrame;
+        lastFrame = currentFrame;
+
+        // Update frame count and elapsed time
+        frameCount++;
+        elapsedTime += deltaTime;
+
+        // Calculate FPS
+        if (elapsedTime >= 1.0f) { // Update FPS every second
+            float fps = frameCount / elapsedTime;
+            std::string windowTitle = "BIBI Engine - Pyramid with Camera test - FPS: " + std::to_string(fps);
+            glfwSetWindowTitle(window, windowTitle.c_str());
+
+            // Reset counters
+            frameCount = 0;
+            elapsedTime = 0.0f;
+        }
+
         float cameraSpeed = 0.05f * 0.016f; // Adjust speed and delta time
 
         if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
@@ -123,9 +148,8 @@ int main() {
         }       
         if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS) {
             camera.moveDown(cameraSpeed);
-        }       
-
-
+        }   
+            
         // Clear the screen
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
