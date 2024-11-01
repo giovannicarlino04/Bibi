@@ -4,7 +4,7 @@
         {
             "label": "Build Test",
             "type": "shell",
-            "command": "g++",
+            "command": "C:/msys64/mingw64/bin/g++",
             "args": [
                 "-g",
                 "${workspaceFolder}/tests/test.cpp",
@@ -19,7 +19,9 @@
                 "-lglew32",
                 "-lopengl32",
                 "-lgdi32",
-                "-lfmt"
+                "-lfmt",
+                "-static-libgcc",
+                "-static-libstdc++"
             ],
             "group": {
                 "kind": "build",
